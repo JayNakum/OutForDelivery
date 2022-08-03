@@ -28,7 +28,7 @@ Application::~Application()
 
 void Application::run()
 {
-	Shader shaders("D:\\OutForDelivery\\OutForDelivery\\res\\shaders\\3.3.shader.vs", "D:\\OutForDelivery\\OutForDelivery\\res\\shaders\\3.3.shader.fs");
+	Shader shaders("res\\shaders\\3.3.shader.vs", "res\\shaders\\3.3.shader.fs");
 	shaders.use();
 
 	Package package;

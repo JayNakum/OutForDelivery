@@ -19,4 +19,8 @@ private:
         1, 2, 3   // second Triangle
     };
 	unsigned int VAO, VBO, EBO;
+    
+    // unsigned int texture;
+    // void initTextures();
+
 };

@@ -79,7 +79,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\</IntDir>
-    <IncludePath>$(SolutionDir)$(ProjectName)\vendors;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)$(ProjectName)\vendors\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)$(ProjectName)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -91,7 +91,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\</IntDir>
-    <IncludePath>$(SolutionDir)$(ProjectName)\vendors;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)$(ProjectName)\vendors\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)$(ProjectName)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -115,6 +115,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,6 +146,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
