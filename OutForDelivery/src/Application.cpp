@@ -1,6 +1,10 @@
 #include "Application.h"
 #include "Package.h"
 
+// settings
+const unsigned int SCR_WIDTH = 900;
+const unsigned int SCR_HEIGHT = 600;
+
 Application::Application(const char* name)
 	: _name(name)
 {
@@ -31,7 +35,7 @@ void Application::run()
 	Shader shaders("res\\shaders\\3.3.shader.vs", "res\\shaders\\3.3.shader.fs");
 	shaders.use();
 
-	Package package;
+	Package package(&shaders);
 
 	while (_isRunning)
 	{
@@ -44,9 +48,12 @@ void Application::run()
 		_window->processInputs();
 		if (_window->shouldClose()) _isRunning = false;
 
-		package.render(*_renderer);
+		glm::mat4 view = glm::mat4(1.0f);
+		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+		shaders.setMat4("view", view);
 
-		_window->render();
+		package.render(*_renderer);
+		_window->render(&shaders);
 		glfwPollEvents();
 	}
 }

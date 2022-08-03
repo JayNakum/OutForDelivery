@@ -158,9 +158,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Package.cpp" />
-    <ClCompile Include="src\engine\IndexBuffer.cpp" />
-    <ClCompile Include="src\engine\VertexArray.cpp" />
-    <ClCompile Include="src\engine\VertexBuffer.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\engine\Log.cpp" />
     <ClCompile Include="src\engine\Renderer.cpp" />
@@ -171,10 +168,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Package.h" />
-    <ClInclude Include="src\engine\IndexBuffer.h" />
-    <ClInclude Include="src\engine\VertexArray.h" />
-    <ClInclude Include="src\engine\VertexBuffer.h" />
-    <ClInclude Include="src\engine\VertexBufferLayout.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\engine\Camera.h" />
     <ClInclude Include="src\engine\Log.h" />
@@ -445,9 +438,6 @@
     <None Include="vendors\glm\gtx\vector_angle.inl" />
     <None Include="vendors\glm\gtx\vector_query.inl" />
     <None Include="vendors\glm\gtx\wrap.inl" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="res\textures\t_package.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
