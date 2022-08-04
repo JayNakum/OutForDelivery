@@ -1,8 +1,8 @@
-#include "Package.h"
+#include "Ground.h"
 
 #include "stb_image/stb_image.h"
 
-void Package::render(Renderer& renderer)
+void Ground::render(Renderer& renderer)
 {
     m_shader.use();
 
@@ -15,7 +15,7 @@ void Package::render(Renderer& renderer)
     renderer.render(VAO, EBO);
 }
 
-void Package::initTextures()
+void Ground::initTextures()
 {
     m_shader.use();
     glGenTextures(1, &texture);
@@ -23,14 +23,14 @@ void Package::initTextures()
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    
+
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    
+
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true);
-    
-    unsigned char* data = stbi_load("res\\textures\\tex.jpg", &width, &height, &nrChannels, 0);
+
+    unsigned char* data = stbi_load("res\\textures\\tex.png", &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -43,7 +43,7 @@ void Package::initTextures()
     stbi_image_free(data);
 }
 
-Package::Package(Shader shader)
+Ground::Ground(Shader shader)
     : m_shader(shader)
 {
     glGenVertexArrays(1, &VAO);
@@ -64,9 +64,9 @@ Package::Package(Shader shader)
     // texture coord attribute
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
-    
+
     initTextures();
-    
+
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }

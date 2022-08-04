@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Ground.cpp" />
     <ClCompile Include="src\Package.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\engine\Log.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="src\engine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Ground.h" />
     <ClInclude Include="src\Package.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\engine\Camera.h" />

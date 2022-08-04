@@ -1,4 +1,6 @@
 #include "Application.h"
+
+#include "Ground.h"
 #include "Package.h"
 
 // settings
@@ -33,9 +35,9 @@ Application::~Application()
 void Application::run()
 {
 	Shader shaders("res\\shaders\\3.3.shader.vs", "res\\shaders\\3.3.shader.fs");
-	shaders.use();
 
-	Package package(&shaders);
+	Ground ground(shaders);
+	Package package(shaders);
 
 	while (_isRunning)
 	{
@@ -53,6 +55,8 @@ void Application::run()
 		shaders.setMat4("view", view);
 
 		package.render(*_renderer);
+		ground.render(*_renderer);
+
 		_window->render(&shaders);
 		glfwPollEvents();
 	}
