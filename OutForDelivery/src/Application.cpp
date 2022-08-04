@@ -1,5 +1,11 @@
 #include "Application.h"
+
+#include "Ground.h"
 #include "Package.h"
+
+// settings
+const unsigned int SCR_WIDTH = 900;
+const unsigned int SCR_HEIGHT = 600;
 
 Application::Application(const char* name)
 	: _name(name)
@@ -28,10 +34,12 @@ Application::~Application()
 
 void Application::run()
 {
-	Shader shaders("D:\\OutForDelivery\\OutForDelivery\\res\\shaders\\3.3.shader.vs", "D:\\OutForDelivery\\OutForDelivery\\res\\shaders\\3.3.shader.fs");
-	shaders.use();
+	Shader shaders("res\\shaders\\3.3.shader.vs", "res\\shaders\\3.3.shader.fs");
 
-	Package package;
+	Ground ground(shaders);
+	Package package(shaders);
+
+	glm::vec3 camera = glm::vec3(-2.0f, 0.0f, -3.0f);
 
 	while (_isRunning)
 	{
@@ -40,13 +48,23 @@ void Application::run()
 		lastFrame = currentFrame;
 
 		_renderer->clear();
-
-		_window->processInputs();
+		
 		if (_window->shouldClose()) _isRunning = false;
 
-		package.render(*_renderer);
+		glm::mat4 view = glm::mat4(1.0f);
+		view = glm::translate(view, camera);
+		shaders.setMat4("view", view);
 
-		_window->render();
+		ground.render(*_renderer);
+
+		package.render(*_renderer, &camera);
+		if (_window->isPressed(GLFW_KEY_SPACE))
+		{
+			package.shoot(0.03f, 0.35f);
+		}
+
+
+		_window->render(&shaders);
 		glfwPollEvents();
 	}
 }

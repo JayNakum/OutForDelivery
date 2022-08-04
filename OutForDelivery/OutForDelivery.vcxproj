@@ -79,7 +79,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\</IntDir>
-    <IncludePath>$(SolutionDir)$(ProjectName)\vendors;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)$(ProjectName)\vendors\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)$(ProjectName)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -91,7 +91,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\</IntDir>
-    <IncludePath>$(SolutionDir)$(ProjectName)\vendors;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)$(ProjectName)\vendors\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)$(ProjectName)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -115,6 +115,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,6 +146,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,10 +157,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Ground.cpp" />
     <ClCompile Include="src\Package.cpp" />
-    <ClCompile Include="src\engine\IndexBuffer.cpp" />
-    <ClCompile Include="src\engine\VertexArray.cpp" />
-    <ClCompile Include="src\engine\VertexBuffer.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\engine\Log.cpp" />
     <ClCompile Include="src\engine\Renderer.cpp" />
@@ -168,11 +168,8 @@
     <ClCompile Include="src\engine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Ground.h" />
     <ClInclude Include="src\Package.h" />
-    <ClInclude Include="src\engine\IndexBuffer.h" />
-    <ClInclude Include="src\engine\VertexArray.h" />
-    <ClInclude Include="src\engine\VertexBuffer.h" />
-    <ClInclude Include="src\engine\VertexBufferLayout.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\engine\Camera.h" />
     <ClInclude Include="src\engine\Log.h" />
@@ -443,9 +440,6 @@
     <None Include="vendors\glm\gtx\vector_angle.inl" />
     <None Include="vendors\glm\gtx\vector_query.inl" />
     <None Include="vendors\glm\gtx\wrap.inl" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="res\textures\t_package.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

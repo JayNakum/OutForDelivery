@@ -1,16 +1,22 @@
 #include "Window.h"
 
-void Window::render()
+void Window::render(Shader* shader)
 {
     if (_updateViewport)
     {
         glfwGetFramebufferSize(_glfwWindow, &_viewportWidth, &_viewportHeight);
         glViewport(0, 0, _viewportWidth, _viewportHeight);
+
+        glm::mat4 projection = glm::mat4(1.0f);
+        projection = glm::perspective(glm::radians(45.0f), (float)_width / (float)_height, 0.1f, 100.0f);
+        shader->setMat4("projection", projection);
+        
         _updateViewport = false;
     }
+
     glfwSwapBuffers(_glfwWindow);
 }
-
+/*
 void Window::processInputs()
 {
     if (glfwGetKey(_glfwWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -23,6 +29,7 @@ void Window::processInputs()
     // if (glfwGetKey(_glfwWindow, GLFW_KEY_F11) == GLFW_PRESS)
     //     setFullScreen(!isFullscreen());
 }
+*/
 
 bool Window::shouldClose()
 {
