@@ -41,6 +41,7 @@ void Ground::initTextures()
         ERROR("Failed to load texture.");
     }
     stbi_image_free(data);
+    m_shader.setInt("texture", 0);
 }
 
 Ground::Ground(Shader shader)

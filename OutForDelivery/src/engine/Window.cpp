@@ -16,7 +16,7 @@ void Window::render(Shader* shader)
 
     glfwSwapBuffers(_glfwWindow);
 }
-
+/*
 void Window::processInputs()
 {
     if (glfwGetKey(_glfwWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -29,6 +29,7 @@ void Window::processInputs()
     // if (glfwGetKey(_glfwWindow, GLFW_KEY_F11) == GLFW_PRESS)
     //     setFullScreen(!isFullscreen());
 }
+*/
 
 bool Window::shouldClose()
 {

@@ -1,17 +1,40 @@
 #include "Package.h"
-
+#include <cmath>
 #include "stb_image/stb_image.h"
 
-void Package::render(Renderer& renderer)
+void Package::shoot(float power, float angle)
+{
+    xVelocity = power * cos(angle);
+    yVelocity = power * sin(angle);
+    fire = true;
+}
+
+void Package::render(Renderer& renderer, glm::vec3* camera)
 {
     m_shader.use();
+    glBindTexture(GL_TEXTURE_2D, texture);
 
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, translation);
     m_shader.setMat4("model", model);
 
-    glBindTexture(GL_TEXTURE_2D, texture);
+    if (fire)
+    {
+        yVelocity -= 0.0001f; // resistance
 
+        translation.x += xVelocity;
+        translation.y += yVelocity;
+
+        if (translation.y <= -0.9f)
+        {
+            xVelocity = 0.0f;
+            yVelocity = 0.0f;
+            fire = false;
+        }
+    }
+    camera->x = -translation.x;
+
+    
     renderer.render(VAO, EBO);
 }
 
@@ -41,6 +64,7 @@ void Package::initTextures()
         ERROR("Failed to load texture.");
     }
     stbi_image_free(data);
+    m_shader.setInt("texture", 0);
 }
 
 Package::Package(Shader shader)

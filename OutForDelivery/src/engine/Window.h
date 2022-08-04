@@ -1,6 +1,7 @@
 #pragma once
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
 #include "Renderer.h"
 #include "Log.h"
 
@@ -10,7 +11,6 @@ public:
 	Window(const char* title, int width, int height);
 	
 	void render(Shader* shader);
-	void processInputs();
 
 	bool shouldClose();
 	
@@ -18,6 +18,9 @@ public:
 	bool isFullscreen();
 	void setFullScreen(bool fullscreen);
 
+	inline bool isPressed(int keyCode) { return (glfwGetKey(_glfwWindow, keyCode) == GLFW_PRESS); }
+	inline bool isReleased(int keyCode) { return (glfwGetKey(_glfwWindow, keyCode) == GLFW_RELEASE); }
+	
 private:
 	void resize(int width, int height);
 

@@ -39,6 +39,8 @@ void Application::run()
 	Ground ground(shaders);
 	Package package(shaders);
 
+	glm::vec3 camera = glm::vec3(-2.0f, 0.0f, -3.0f);
+
 	while (_isRunning)
 	{
 		float currentFrame = static_cast<float>(glfwGetTime());
@@ -46,16 +48,21 @@ void Application::run()
 		lastFrame = currentFrame;
 
 		_renderer->clear();
-
-		_window->processInputs();
+		
 		if (_window->shouldClose()) _isRunning = false;
 
 		glm::mat4 view = glm::mat4(1.0f);
-		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+		view = glm::translate(view, camera);
 		shaders.setMat4("view", view);
 
-		package.render(*_renderer);
 		ground.render(*_renderer);
+
+		package.render(*_renderer, &camera);
+		if (_window->isPressed(GLFW_KEY_SPACE))
+		{
+			package.shoot(0.03f, 0.35f);
+		}
+
 
 		_window->render(&shaders);
 		glfwPollEvents();

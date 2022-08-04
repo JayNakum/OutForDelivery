@@ -8,15 +8,22 @@ public:
     Ground(Shader shader);
     void render(Renderer& renderer);
 
-    glm::vec3 translation = glm::vec3(0.0f, -0.9f, 0.0f);
+    inline float getTop() { return (translation.y + height); }
+
+    glm::vec3 translation = glm::vec3(-2.0f, -1.5f, 0.0f);
 
 private:
+
+    const float height = 0.5f;
+    const float width = 10.0f;
+
+
     float _vertices[20] = {
-        // positions        // texture coords
-         0.5f,  0.1f, 0.0f, 1.0f, 1.0f, // top right
-         0.5f, -0.1f, 0.0f, 1.0f, 0.0f, // bottom right
-        -0.5f, -0.1f, 0.0f, 0.0f, 0.0f, // bottom left
-        -0.5f,  0.1f, 0.0f, 0.0f, 1.0f  // top left 
+        // positions         // texture coords
+        width, height, 0.0f, 1.0f, 1.0f, // top right
+        width, 0.0f,   0.0f, 1.0f, 0.0f, // bottom right
+         0.0f, 0.0f,   0.0f, 0.0f, 0.0f, // bottom left
+         0.0f, height, 0.0f, 0.0f, 1.0f  // top left 
     };
     unsigned int _indices[6] = {
         0, 1, 3,  // first Triangle
