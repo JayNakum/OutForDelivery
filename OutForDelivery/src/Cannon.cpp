@@ -1,21 +1,21 @@
-#include "Ground.h"
+#include "Cannon.h"
 
 #include "stb_image/stb_image.h"
 
-void Ground::render(Renderer& renderer)
+void Cannon::render(Renderer& renderer)
 {
     m_shader.use();
+    glBindTexture(GL_TEXTURE_2D, texture);
 
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, translation);
+    model = glm::rotate(model, glm::radians(angle), glm::vec3(0.0f, 0.0f, 1.0f));
     m_shader.setMat4("model", model);
-
-    glBindTexture(GL_TEXTURE_2D, texture);
 
     renderer.render(VAO, EBO);
 }
 
-void Ground::initTextures()
+void Cannon::initTextures()
 {
     m_shader.use();
     glGenTextures(1, &texture);
@@ -30,7 +30,7 @@ void Ground::initTextures()
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true);
 
-    unsigned char* data = stbi_load("res\\textures\\grass.png", &width, &height, &nrChannels, 0);
+    unsigned char* data = stbi_load("res\\textures\\cannon.png", &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -44,7 +44,7 @@ void Ground::initTextures()
     m_shader.setInt("texture", 0);
 }
 
-Ground::Ground(Shader& shader)
+Cannon::Cannon(Shader& shader)
     : m_shader(shader)
 {
     glGenVertexArrays(1, &VAO);

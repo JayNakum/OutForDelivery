@@ -157,17 +157,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Cannon.cpp" />
     <ClCompile Include="src\Ground.cpp" />
     <ClCompile Include="src\Package.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\engine\Log.cpp" />
     <ClCompile Include="src\engine\Renderer.cpp" />
+    <ClCompile Include="src\Store.cpp" />
     <ClCompile Include="vendors\glad\glad.c" />
     <ClCompile Include="vendors\glm\detail\glm.cpp" />
     <ClCompile Include="vendors\stb_image\stb_image.cpp" />
     <ClCompile Include="src\engine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Cannon.h" />
     <ClInclude Include="src\Ground.h" />
     <ClInclude Include="src\Package.h" />
     <ClInclude Include="src\Application.h" />
@@ -175,6 +178,7 @@
     <ClInclude Include="src\engine\Log.h" />
     <ClInclude Include="src\engine\Renderer.h" />
     <ClInclude Include="src\engine\Shader.h" />
+    <ClInclude Include="src\Store.h" />
     <ClInclude Include="vendors\glad\glad.h" />
     <ClInclude Include="vendors\GLFW\glfw3.h" />
     <ClInclude Include="vendors\GLFW\glfw3native.h" />

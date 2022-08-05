@@ -5,7 +5,7 @@
 class Ground
 {
 public:
-    Ground(Shader shader);
+    Ground(Shader& shader);
     void render(Renderer& renderer);
 
     inline float getTop() { return (translation.y + height); }
@@ -15,7 +15,7 @@ public:
 private:
 
     const float height = 0.5f;
-    const float width = 10.0f;
+    const float width = 100.0f;
 
 
     float _vertices[20] = {

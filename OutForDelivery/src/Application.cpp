@@ -1,6 +1,8 @@
 #include "Application.h"
 
 #include "Ground.h"
+#include "Store.h"
+#include "Cannon.h"
 #include "Package.h"
 
 // settings
@@ -34,12 +36,15 @@ Application::~Application()
 
 void Application::run()
 {
+	bool canShoot = true;
 	Shader shaders("res\\shaders\\3.3.shader.vs", "res\\shaders\\3.3.shader.fs");
 
 	Ground ground(shaders);
+	Store store(shaders);
+	Cannon cannon(shaders);
 	Package package(shaders);
 
-	glm::vec3 camera = glm::vec3(-2.0f, 0.0f, -3.0f);
+	glm::vec3 camera = glm::vec3(0.0f, 0.0f, -3.0f);
 
 	while (_isRunning)
 	{
@@ -56,13 +61,29 @@ void Application::run()
 		shaders.setMat4("view", view);
 
 		ground.render(*_renderer);
+		store.render(*_renderer);
+		cannon.render(*_renderer);
 
-		package.render(*_renderer, &camera);
-		if (_window->isPressed(GLFW_KEY_SPACE))
+		package.render(*_renderer, camera);
+		if (_window->isPressed(GLFW_KEY_UP))
 		{
-			package.shoot(0.03f, 0.35f);
+			if(cannon.angle < 90.0f)
+				cannon.angle += 0.1f;
 		}
+		if (_window->isPressed(GLFW_KEY_DOWN))
+		{
+			if (cannon.angle > 0.0f)
+				cannon.angle -= 0.1f;
+		}
+		if (_window->isPressed(GLFW_KEY_SPACE) && canShoot)
+		{
+			if (canShoot)
+			{
+				package.shoot(cannon.power, cannon.angle / 100);
+				canShoot = false;
+			}
 
+		}
 
 		_window->render(&shaders);
 		glfwPollEvents();

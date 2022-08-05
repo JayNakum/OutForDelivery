@@ -5,15 +5,15 @@
 class Package
 {
 public:
-	Package(Shader shader);
-    void render(Renderer& renderer, glm::vec3*);
+	Package(Shader& shader);
+    void render(Renderer& renderer, glm::vec3&);
     void shoot(float power, float angle);
 
 private:
     float yVelocity = 0.0f;
     float xVelocity = 0.001f;
     bool fire = false;
-
+    float rotation = 0.0f;
 
     float _vertices[20] = {
         // positions        // texture coords
@@ -31,7 +31,7 @@ private:
     unsigned int texture = 0;
     void initTextures();
     
-    glm::vec3 translation = glm::vec3(1.0f, -0.9f, 0.0f);
+    glm::vec3 translation = glm::vec3(0.0f, -0.9f, 0.0f);
 
     Shader m_shader;
 
