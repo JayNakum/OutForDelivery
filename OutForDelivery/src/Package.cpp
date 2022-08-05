@@ -1,29 +1,34 @@
 #include "Package.h"
 #include <cmath>
+
 #include "stb_image/stb_image.h"
 
 void Package::shoot(float power, float angle)
 {
+    rotation = angle * 100;
     xVelocity = power * cos(angle);
     yVelocity = power * sin(angle);
     fire = true;
 }
 
-void Package::render(Renderer& renderer, glm::vec3* camera)
+void Package::render(Renderer& renderer, glm::vec3& camera)
 {
     m_shader.use();
     glBindTexture(GL_TEXTURE_2D, texture);
 
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, translation);
+    if(fire)
+        model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
     m_shader.setMat4("model", model);
 
     if (fire)
     {
-        yVelocity -= 0.0001f; // resistance
-
         translation.x += xVelocity;
         translation.y += yVelocity;
+
+        rotation -= 1.0f ;
+        yVelocity -= 0.0001f; // resistance
 
         if (translation.y <= -0.9f)
         {
@@ -31,10 +36,9 @@ void Package::render(Renderer& renderer, glm::vec3* camera)
             yVelocity = 0.0f;
             fire = false;
         }
+        camera.x = -translation.x;
     }
-    camera->x = -translation.x;
 
-    
     renderer.render(VAO, EBO);
 }
 
@@ -53,7 +57,7 @@ void Package::initTextures()
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true);
     
-    unsigned char* data = stbi_load("res\\textures\\tex.jpg", &width, &height, &nrChannels, 0);
+    unsigned char* data = stbi_load("res\\textures\\package.jpg", &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -67,7 +71,7 @@ void Package::initTextures()
     m_shader.setInt("texture", 0);
 }
 
-Package::Package(Shader shader)
+Package::Package(Shader& shader)
     : m_shader(shader)
 {
     glGenVertexArrays(1, &VAO);
