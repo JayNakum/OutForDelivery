@@ -1,22 +1,21 @@
 #pragma once
 #include "engine/Renderer.h"
 
-class Cannon
+class House
 {
 public:
-    Cannon(Shader& shader);
+    House(Shader& shader);
     void render(Renderer& renderer);
-
-    float power = 0.15f; 
-    float angle = 30.0f;
+    void reset(float newPos);
+    inline float getPos() { return translation.x; }
 private:
 
     float _vertices[20] = {
         // positions        // texture coords
-         0.3f,  0.15f, 0.0f, 1.0f, 1.0f, // top right
-         0.3f, -0.10f, 0.0f, 1.0f, 0.0f, // bottom right
-        -0.3f, -0.10f, 0.0f, 0.0f, 0.0f, // bottom left
-        -0.3f,  0.15f, 0.0f, 0.0f, 1.0f  // top left 
+         0.5f,  0.5f, 0.0f, 1.0f, 1.0f, // top right
+         0.5f, -0.5f, 0.0f, 1.0f, 0.0f, // bottom right
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // bottom left
+        -0.5f,  0.5f, 0.0f, 0.0f, 1.0f  // top left 
     };
     unsigned int _indices[6] = {
         0, 1, 3,  // first Triangle
@@ -27,7 +26,7 @@ private:
     unsigned int texture = 0;
     void initTextures();
 
-    glm::vec3 translation = glm::vec3(0.0f, -0.9f, 0.0f);
+    glm::vec3 translation = glm::vec3(10.0f, -0.5f, 0.0f);
 
     Shader m_shader;
 

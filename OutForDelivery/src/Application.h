@@ -16,7 +16,6 @@ private:
 	bool _isRunning;
 	Window* _window;
 	Renderer* _renderer;
-
 	float deltaTime = 0.0f;
 	float lastFrame = 0.0f;
 };
