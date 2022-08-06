@@ -10,7 +10,7 @@ class Window
 public:
 	Window(const char* title, int width, int height);
 	
-	void render(Shader* shader);
+	void render();
 
 	bool shouldClose();
 	

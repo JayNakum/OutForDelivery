@@ -48,6 +48,9 @@
     <ClCompile Include="src\Store.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\House.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendors\glad\glad.h">
@@ -525,6 +528,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Store.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\vallentin\gltext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\House.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,68 +1,40 @@
-#include "Package.h"
-#include <cmath>
-
+#include "House.h"
 #include "stb_image/stb_image.h"
 
-void Package::shoot(float power, float angle)
+void House::reset(float newPos)
 {
-    rotation = angle * 100;
-    xVelocity = power * cos(angle);
-    yVelocity = power * sin(angle);
-    fire = true;
+    translation.x = newPos;
 }
 
-void Package::reset()
-{
-    translation = glm::vec3(-0.1f, -0.9f, 0.0f);
-}
-
-void Package::render(Renderer& renderer, glm::vec3& camera)
+void House::render(Renderer& renderer)
 {
     m_shader.use();
     glBindTexture(GL_TEXTURE_2D, texture);
 
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, translation);
-    if(fire)
-        model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
     m_shader.setMat4("model", model);
-
-    if (fire)
-    {
-        translation.x += xVelocity;
-        translation.y += yVelocity;
-
-        rotation -= xVelocity * 10 ;
-        yVelocity -= 0.001f; // resistance
-
-        if (translation.y <= -0.9f)
-        {
-            xVelocity = 0.0f;
-            yVelocity = 0.0f;
-            fire = false;
-        }
-        camera.x = -translation.x;
-    }
 
     renderer.render(VAO, EBO);
 }
 
-void Package::initTextures()
+void House::initTextures()
 {
+
     m_shader.use();
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    
+
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    
+
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true);
-    
-    unsigned char* data = stbi_load("res\\textures\\package.png", &width, &height, &nrChannels, 0);
+
+    unsigned char* data = stbi_load("res\\textures\\house.png", &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -76,7 +48,7 @@ void Package::initTextures()
     m_shader.setInt("texture", 0);
 }
 
-Package::Package(Shader& shader)
+House::House(Shader& shader)
     : m_shader(shader)
 {
     glGenVertexArrays(1, &VAO);
@@ -97,9 +69,9 @@ Package::Package(Shader& shader)
     // texture coord attribute
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
-    
+
     initTextures();
-    
+
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }

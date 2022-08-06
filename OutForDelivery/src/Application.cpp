@@ -1,13 +1,10 @@
 #include "Application.h"
-
+#include <cstdlib>
 #include "Ground.h"
 #include "Store.h"
+#include "House.h"
 #include "Cannon.h"
 #include "Package.h"
-
-// settings
-const unsigned int SCR_WIDTH = 900;
-const unsigned int SCR_HEIGHT = 600;
 
 Application::Application(const char* name)
 	: _name(name)
@@ -37,21 +34,29 @@ Application::~Application()
 void Application::run()
 {
 	bool canShoot = true;
+	bool reset = true;
+	srand(time(0));
 	Shader shaders("res\\shaders\\3.3.shader.vs", "res\\shaders\\3.3.shader.fs");
-
 	Ground ground(shaders);
 	Store store(shaders);
+	House house(shaders);
 	Cannon cannon(shaders);
 	Package package(shaders);
 
+	glm::mat4 projection = glm::mat4(1.0f);
+	// projection = glm::perspective(glm::radians(45.0f), (float)_width / (float)_height, 0.1f, 100.0f);
+	projection = glm::ortho(-2.0f, +2.0f, -1.5f, +1.5f, 0.1f, 100.0f);
+	shaders.setMat4("projection", projection);
 	glm::vec3 camera = glm::vec3(0.0f, 0.0f, -3.0f);
 
 	while (_isRunning)
 	{
-		float currentFrame = static_cast<float>(glfwGetTime());
-		deltaTime = currentFrame - lastFrame;
-		lastFrame = currentFrame;
-
+		if (reset)
+		{
+			camera = glm::vec3(0.0f, 0.0f, -3.0f);
+			reset = false;
+		}
+		
 		_renderer->clear();
 		
 		if (_window->shouldClose()) _isRunning = false;
@@ -63,29 +68,36 @@ void Application::run()
 		ground.render(*_renderer);
 		store.render(*_renderer);
 		cannon.render(*_renderer);
-
+		house.render(*_renderer);
 		package.render(*_renderer, camera);
 		if (_window->isPressed(GLFW_KEY_UP))
 		{
 			if(cannon.angle < 90.0f)
-				cannon.angle += 0.1f;
+				cannon.angle += 1.0f;
 		}
 		if (_window->isPressed(GLFW_KEY_DOWN))
 		{
 			if (cannon.angle > 0.0f)
-				cannon.angle -= 0.1f;
+				cannon.angle -= 1.0f;
 		}
 		if (_window->isPressed(GLFW_KEY_SPACE) && canShoot)
 		{
-			if (canShoot)
-			{
 				package.shoot(cannon.power, cannon.angle / 100);
-				canShoot = false;
-			}
-
+				canShoot = false;			
 		}
+		if (_window->isPressed(GLFW_KEY_R) && !reset)
+		{
+			if (package.getPos() >= house.getPos() - 1.0f && package.getPos() <= house.getPos() + 1.0f)
+			{
+				house.reset((rand() % 10) + 1);
 
-		_window->render(&shaders);
+			}
+			package.reset();
+			reset = true;
+			canShoot = true;
+		}
+		
+		_window->render();
 		glfwPollEvents();
 	}
 }

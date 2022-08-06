@@ -8,7 +8,8 @@ public:
 	Package(Shader& shader);
     void render(Renderer& renderer, glm::vec3&);
     void shoot(float power, float angle);
-
+    inline float getPos() { return translation.x; }
+    void reset();
 private:
     float yVelocity = 0.0f;
     float xVelocity = 0.001f;
@@ -31,7 +32,7 @@ private:
     unsigned int texture = 0;
     void initTextures();
     
-    glm::vec3 translation = glm::vec3(0.0f, -0.9f, 0.0f);
+    glm::vec3 translation = glm::vec3(-0.1f, -0.9f, 0.0f);
 
     Shader m_shader;
 

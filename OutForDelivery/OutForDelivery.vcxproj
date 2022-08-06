@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\House.cpp" />
     <ClCompile Include="src\Cannon.cpp" />
     <ClCompile Include="src\Ground.cpp" />
     <ClCompile Include="src\Package.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="src\engine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\House.h" />
     <ClInclude Include="src\Cannon.h" />
     <ClInclude Include="src\Ground.h" />
     <ClInclude Include="src\Package.h" />
@@ -329,6 +331,7 @@
     <ClInclude Include="vendors\KHR\khrplatform.h" />
     <ClInclude Include="vendors\stb_image\stb_image.h" />
     <ClInclude Include="src\engine\Window.h" />
+    <ClInclude Include="vendors\vallentin\gltext.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\3.3.shader.fs" />
