@@ -89,7 +89,7 @@ void Application::run()
 		{
 			if (package.getPos() >= house.getPos() - 1.0f && package.getPos() <= house.getPos() + 1.0f)
 			{
-				house.reset((rand() % 10) + 1);
+				house.reset((rand() % 10) + 2);
 
 			}
 			package.reset();

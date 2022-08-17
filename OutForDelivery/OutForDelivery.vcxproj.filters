@@ -536,6 +536,9 @@
     <ClInclude Include="src\House.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendors\glm\detail\func_common.inl">
@@ -873,5 +876,10 @@
     </None>
     <None Include="res\shaders\3.3.shader.fs" />
     <None Include="res\shaders\3.3.shader.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="JayNakum.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
