@@ -171,6 +171,7 @@
     <ClCompile Include="src\engine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="src\House.h" />
     <ClInclude Include="src\Cannon.h" />
     <ClInclude Include="src\Ground.h" />
@@ -447,6 +448,9 @@
     <None Include="vendors\glm\gtx\vector_angle.inl" />
     <None Include="vendors\glm\gtx\vector_query.inl" />
     <None Include="vendors\glm\gtx\wrap.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="JayNakum.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
